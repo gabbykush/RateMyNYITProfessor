@@ -23,14 +23,20 @@ public class DatabaseContract {
         public static final String TABLE_NAME = "Professors";
         public static final String COL_LAST_NAME = "Last_Name";
         public static final String COL_FIRST_NAME = "First_Name";
-
+        public static final String COL_RATING = "Rating";
+        public static final String COL_LEVEL_OF_DIFFICULTY = "Level_of_Difficulty";
+        public static final String COL_WOULD_TAKE_AGAIN = "Would_Take_Again";
     }
 
     public static final String CREATE_PROFESSOR_TABLE =
             "create table " + ProfessorTable.TABLE_NAME+
                     " (" +
-                    ProfessorTable.COL_LAST_NAME + " TEXT PRIMARY KEY,"+
-                    ProfessorTable.COL_FIRST_NAME + " TEXT"+
+                    ProfessorTable.COL_LAST_NAME + " TEXT NOT NULL,"+
+                    ProfessorTable.COL_FIRST_NAME + " TEXT NOT NULL,"+
+                    ProfessorTable.COL_RATING + " FLOAT,"+
+                    ProfessorTable.COL_LEVEL_OF_DIFFICULTY + " FLOAT,"+
+                    ProfessorTable.COL_WOULD_TAKE_AGAIN + " FLOAT,"+
+                    "PRIMARY KEY(" + ProfessorTable.COL_LAST_NAME + ", " + ProfessorTable.COL_FIRST_NAME + ")" +
                     ")";
 
     public static final class ReviewTable implements BaseColumns {
@@ -48,13 +54,14 @@ public class DatabaseContract {
     public static final String CREATE_REVIEW_TABLE =
             "create table " + ReviewTable.TABLE_NAME+
                     " (" +
-                    ReviewTable.COL_PROF_LAST_NAME + " TEXT PRIMARY KEY,"+
-                    ReviewTable.COL_PROF_FIRST_NAME + " TEXT,"+
-                    ReviewTable.COL_DATE_PUBLISHED + " TEXT,"+
+                    ReviewTable.COL_PROF_LAST_NAME + " TEXT NOT NULL,"+
+                    ReviewTable.COL_PROF_FIRST_NAME + " TEXT NOT NULL,"+
+                    ReviewTable.COL_DATE_PUBLISHED + " TEXT NOT NULL,"+
                     ReviewTable.COL_COURSEID + " TEXT,"+
                     ReviewTable.COL_COMMENT + " TEXT,"+
                     ReviewTable.COL_RATING + " FLOAT,"+
-                    ReviewTable.COL_DIFFICULTY + " FLOAT"+
+                    ReviewTable.COL_DIFFICULTY + " FLOAT,"+
+                    "PRIMARY KEY(" + ReviewTable.COL_PROF_LAST_NAME + ", " + ReviewTable.COL_PROF_FIRST_NAME + ", " + ReviewTable.COL_DATE_PUBLISHED + ")" +
                     ")";
 
 }
