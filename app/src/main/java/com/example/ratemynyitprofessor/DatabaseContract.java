@@ -41,6 +41,7 @@ public class DatabaseContract {
 
     public static final class ReviewTable implements BaseColumns {
         public static final String TABLE_NAME = "Reviews";
+        public static final String COL_ID = "ID";
         public static final String COL_PROF_LAST_NAME = "Professor_Last_Name";
         public static final String COL_PROF_FIRST_NAME = "Professor_First_Name";
         public static final String COL_DATE_PUBLISHED = "Date_Published";
@@ -54,14 +55,15 @@ public class DatabaseContract {
     public static final String CREATE_REVIEW_TABLE =
             "create table " + ReviewTable.TABLE_NAME+
                     " (" +
+                    ReviewTable.COL_ID + " INTEGER AUTOINCREMENT,"+
                     ReviewTable.COL_PROF_LAST_NAME + " TEXT NOT NULL,"+
                     ReviewTable.COL_PROF_FIRST_NAME + " TEXT NOT NULL,"+
-                    ReviewTable.COL_DATE_PUBLISHED + " TEXT NOT NULL,"+
+                    ReviewTable.COL_DATE_PUBLISHED + " TEXT,"+
                     ReviewTable.COL_COURSEID + " TEXT,"+
                     ReviewTable.COL_COMMENT + " TEXT,"+
                     ReviewTable.COL_RATING + " FLOAT,"+
                     ReviewTable.COL_DIFFICULTY + " FLOAT,"+
-                    "PRIMARY KEY(" + ReviewTable.COL_PROF_LAST_NAME + ", " + ReviewTable.COL_PROF_FIRST_NAME + ", " + ReviewTable.COL_DATE_PUBLISHED + ")" +
+                    "PRIMARY KEY(" + ReviewTable.COL_ID + ")" +
                     ")";
 
 }
