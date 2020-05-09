@@ -1,5 +1,6 @@
 package com.example.ratemynyitprofessor;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,67 +14,39 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHelper myDb;
-    EditText editCourseID, editCourseTitle;
-    Button btnAddCourse, btnGetCourseData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDb = new DatabaseHelper(this);
+        //addCourse();
+        //getCourseData();
 
-        editCourseID = (EditText)findViewById(R.id.editText_courseid);
-        editCourseTitle = (EditText)findViewById(R.id.editText_coursetitle);
-        btnAddCourse = (Button)findViewById(R.id.button_add_course);
-        btnGetCourseData = (Button)findViewById(R.id.button_showcoursedata);
-        addCourse();
-        getCourseData();
+        //add initial courses
+        myDb.addCourse("CSCI 120", "Programming I");
+        myDb.addCourse("CSCI 130", "Computer Organization");
+        myDb.addCourse("CSCI 260", "Data Structures");
+        myDb.addCourse("CSCI 330", "Operating Systems");
+        myDb.addCourse("CSCI 345", "Computer Networks");
+
+        //add initial professors
+        myDb.addProfessor("A", "Mr.");
+        myDb.addProfessor("B", "Mr.");
+        myDb.addProfessor("C", "Mr.");
+        myDb.addProfessor("D", "Mr.");
+        myDb.addProfessor("E", "Mr.");
+
+        //add initial reviews
+
+        myDb.addReview("A", "Mr.", "CSCI 120", "Test A", 5, 5);
+        myDb.addReview("A", "Mr.", "CSCI 120", "Test B", 3, 2);
+        myDb.addReview("A", "Mr.", "CSCI 130", "Test C", 5, 5);
+        myDb.addReview("B", "Mr.", "CSCI 120", "Test D", 5, 5);
+        myDb.addReview("C", "Mr.", "CSCI 260", "Test E", 5, 5);
+
 
     }
 
-    public void addCourse(){
-        btnAddCourse.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        boolean isInserted = myDb.addCourse(editCourseID.getText().toString(),
-                                editCourseTitle.getText().toString());
-                        if(isInserted == true)
-                            Toast.makeText(MainActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(MainActivity.this, "Data not inserted", Toast.LENGTH_LONG).show();
-                    }
-                }
-        );
-    }
 
-    public void getCourseData(){
-        btnGetCourseData.setOnClickListener(
-            new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    Cursor res = myDb.getCourseData();
-                    if(res.getCount() == 0){
-                        showMessage("Error", "No data found.");
-                        return;
-                    }
-                    StringBuffer buffer = new StringBuffer();
-                    while (res.moveToNext()){
-                        buffer.append("CourseID: " + res.getString(0) + "\n");
-                        buffer.append("Course Title: " + res.getString(1) + "\n\n");
-                    }
-
-                    showMessage("Course Data", buffer.toString());
-                }
-            }
-        );
-    }
-
-    public void showMessage(String title, String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(message);
-        builder.show();
-    }
 }
